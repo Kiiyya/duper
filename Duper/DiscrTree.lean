@@ -38,8 +38,8 @@ inductive Trie (α : Type) where
 /- The filterSet argument is a temporary hack to simulate deletions from the discrimination tree. If that turns
    out to be too slow though, I'll have to remove it and rewrite delete to actually remove elements from the tree -/
 structure DiscrTree (α : Type) where
-  root : Std.PersistentHashMap Key (Trie α) := {}
-  filterSet : Std.HashSet Clause := {} -- Keeps track of the set of clauses that should be filtered out (i.e. "removed" clauses)
+  root : PersistentHashMap Key (Trie α) := {}
+  filterSet : HashSet Clause := {} -- Keeps track of the set of clauses that should be filtered out (i.e. "removed" clauses)
 
 def Key.ctorIdx : Key → Nat
   | Key.star     => 0

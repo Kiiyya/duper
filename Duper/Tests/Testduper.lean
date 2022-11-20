@@ -1,6 +1,6 @@
 
 import Lean
-import Std.Data.BinomialHeap
+import Std
 
 open Lean
 open Lean.Meta
@@ -34,7 +34,7 @@ def replace (e : Expr) (target : Expr) (replacement : Expr) : MetaM Expr := do
     else return TransformStep.visit s)
 
 def saturate (clauses : List (Bool × Expr × Expr)) : TacticM Unit := do
-  let mut passive : BinomialHeap (Nat × (Bool × Expr × Expr)) fun c d => c.1 ≤ d.1 := 
+  let mut passive : Data.BinomialHeap (Nat × (Bool × Expr × Expr)) fun c d => c.1 ≤ d.1 := 
     BinomialHeap.empty
   let mut active := []
   let mut clauseCounter := 0

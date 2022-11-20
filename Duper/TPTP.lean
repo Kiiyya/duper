@@ -343,7 +343,7 @@ def loadTptp (path : System.FilePath) : CommandElabM Syntax := do
 
 syntax (name := tptpKind) "tptp " ident strLit term : command
 
-@[commandElab tptpKind] def elabResolve : CommandElab := fun stx => do
+@[command_elab tptpKind] def elabResolve : CommandElab := fun stx => do
   match stx with
   | `(tptp $name $file $proof) =>
     match Syntax.isStrLit? file with

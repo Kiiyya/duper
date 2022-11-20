@@ -1,4 +1,5 @@
 import Lean
+import Std
 
 namespace Duper
 open Lean
@@ -26,7 +27,7 @@ namespace Order
 open Lean.Meta
 open Comparison
 
-def VarBalance := Std.HashMap Expr Int
+def VarBalance :=Std.HashMap Expr Int
 
 def VarBalance.addPosVar (vb : VarBalance) (t : Expr) : VarBalance :=
   vb.insert t $ vb.findD t 0 + 1

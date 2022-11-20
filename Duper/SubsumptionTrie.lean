@@ -15,7 +15,7 @@ initialize Lean.registerTraceClass `SubsumptionTrie.debug
 inductive SubsumptionTrieFeatureValue where
   | N : Nat → SubsumptionTrieFeatureValue -- Feature is a number
   | S : HashSet Expr → SubsumptionTrieFeatureValue -- Feature is a set
-  | M : HashMap Expr Nat → SubsumptionTrieFeatureValue -- Feature is a map
+  | M : Std.HashMap Expr Nat → SubsumptionTrieFeatureValue -- Feature is a map
 deriving Inhabited
 
 open SubsumptionTrieFeatureValue
@@ -99,7 +99,7 @@ def collectSymbolsInLit (acc : HashSet Expr) (l : Lit) : HashSet Expr :=
 /-- Updates acc with maps each symbol to its maximal depth in a clause. Note that as with Expr.weight, this function may
     require revision to be more similar to Zipperposition's implementation once we actually start working on higher order things.
     See https://github.com/sneeuwballen/zipperposition/blob/master/src/core/FV_tree.ml#L182 -/
-partial def updateDepthMapWithExpr (acc : HashMap Expr Nat) (e : Expr) (curDepth := 0) : HashMap Expr Nat :=
+partial def updateDepthMapWithExpr (acc : Std.HashMap Expr Nat) (e : Expr) (curDepth := 0) : Std.HashMap Expr Nat :=
   match e.consumeMData with
   | fvar fVarId =>
     match acc.find? (fvar fVarId) with
@@ -125,12 +125,12 @@ partial def updateDepthMapWithExpr (acc : HashMap Expr Nat) (e : Expr) (curDepth
   | _ => acc
 
 /-- Updates acc which maps each symbol to its maximal depth in a clause. -/
-def updateDepthMapWithLit (acc : HashMap Expr Nat) (l : Lit) : HashMap Expr Nat :=
+def updateDepthMapWithLit (acc : Std.HashMap Expr Nat) (l : Lit) : Std.HashMap Expr Nat :=
   updateDepthMapWithExpr (updateDepthMapWithExpr acc l.lhs) l.rhs
 
 /-- Updates acc which maps each symbol to the number of times it occurs in a clause. Note that as with Expr.weight, this function may
     require revision to be more similar to Zipperposition's implementation once we actually start working on higher order things. -/
-partial def updateOccurrenceMapWithExpr (acc : HashMap Expr Nat) (e : Expr) : HashMap Expr Nat :=
+partial def updateOccurrenceMapWithExpr (acc : Std.HashMap Expr Nat) (e : Expr) : Std.HashMap Expr Nat :=
   match e.consumeMData with
   | fvar fVarId =>
     match acc.find? (fvar fVarId) with
@@ -148,7 +148,7 @@ partial def updateOccurrenceMapWithExpr (acc : HashMap Expr Nat) (e : Expr) : Ha
   | _ => acc
 
 /-- Updates acc which maps each symbol to the number of times it occurs in a clause. -/
-def updateOccurrenceMapWithLit (acc : HashMap Expr Nat) (l : Lit) : HashMap Expr Nat :=
+def updateOccurrenceMapWithLit (acc : Std.HashMap Expr Nat) (l : Lit) : Std.HashMap Expr Nat :=
   updateOccurrenceMapWithExpr (updateOccurrenceMapWithExpr acc l.lhs) l.rhs
 
 /-

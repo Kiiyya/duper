@@ -228,7 +228,7 @@ def abstractMVarsLambdaWithIds (e : Expr) : RuleM (Expr × Array Expr) := do
   let e := s.lctx.mkLambda s.fvars e
 
   let sfvars := s.fvars
-  let mut fvarpos : Std.HashMap FVarId Nat := {}
+  let mut fvarpos :Std.HashMap FVarId Nat := {}
   for i in [:sfvars.size] do
     fvarpos := fvarpos.insert sfvars[i]!.fvarId! i
   let mut mvars := sfvars

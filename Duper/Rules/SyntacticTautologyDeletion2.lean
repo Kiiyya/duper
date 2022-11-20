@@ -1,4 +1,5 @@
 import Duper.Simp
+import Lean
 
 namespace Duper
 open Std
@@ -8,8 +9,8 @@ open SimpResult
 /-- This implements the rule syntactic tautology deletion 2 (TD2) -/
 def syntacticTautologyDeletion2 : MSimpRule := fun c => do
   --trace[Simp.debug] "Calling syntacticTautologyDeletion2 on clause {c.lits}"
-  let mut eq_pairs : HashSet (Lean.Expr × Lean.Expr) := mkHashSet; -- A HashSet that stores pairs of Lean expressions that are equated in the clause
-  let mut ne_pairs : HashSet (Lean.Expr × Lean.Expr) := mkHashSet; -- A HashSet that stores pairs of Lean expressions that are stated to not be equal in the clause
+  let mut eq_pairs : Lean.HashSet (Lean.Expr × Lean.Expr) := Lean.mkHashSet; -- A HashSet that stores pairs of Lean expressions that are equated in the clause
+  let mut ne_pairs : Lean.HashSet (Lean.Expr × Lean.Expr) := Lean.mkHashSet; -- A HashSet that stores pairs of Lean expressions that are stated to not be equal in the clause
   for lit in c.lits do
     let lhs := lit.lhs
     let rhs := lit.rhs

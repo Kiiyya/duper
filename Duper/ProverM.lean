@@ -1,5 +1,5 @@
 import Duper.Clause
-import Std.Data.BinomialHeap
+import Std
 import Duper.Fingerprint
 import Duper.Selection
 import Duper.SubsumptionTrie
@@ -45,7 +45,7 @@ deriving Inhabited
 
 structure State where
   result : Result := unknown
-  allClauses : HashMap Clause ClauseInfo := {}
+  allClauses :Std.HashMap Clause ClauseInfo := {}
   activeSet : ClauseSet := {} --TODO: put clause into only in allClauses?
   passiveSet : ClauseSet := {}
   passiveSetAgeHeap : ClauseHeap := BinomialHeap.empty
@@ -99,7 +99,7 @@ def getBlah : ProverM Bool :=
 def getResult : ProverM Result :=
   return (← get).result
 
-def getAllClauses : ProverM (HashMap Clause ClauseInfo) :=
+def getAllClauses : ProverM (Std.HashMap Clause ClauseInfo) :=
   return (← get).allClauses
 
 def getActiveSet : ProverM ClauseSet :=
@@ -140,7 +140,7 @@ def setResult (result : Result) : ProverM Unit :=
 def setActiveSet (activeSet : ClauseSet) : ProverM Unit :=
   modify fun s => { s with activeSet := activeSet }
 
-def setAllClauses (allClauses : HashMap Clause ClauseInfo) : ProverM Unit :=
+def setAllClauses (allClauses :Std.HashMap Clause ClauseInfo) : ProverM Unit :=
   modify fun s => { s with allClauses := allClauses }
 
 def setPassiveSet (passiveSet : ClauseSet) : ProverM Unit :=
