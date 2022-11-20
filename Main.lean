@@ -1,8 +1,6 @@
 import Duper.Tactic
 import Duper.TPTP -- Note: this import is needed to make sure that TPTP is compiled for the github actions
 
-set_option maxRecDepth 1000
-
 def main : List String → IO UInt32 := fun args => do
   let propInequalityTest1 {p : Prop} {q : Prop} (h : p ≠ q) : p ∨ q :=
     by duper
